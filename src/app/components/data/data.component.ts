@@ -26,7 +26,8 @@ export class DataComponent implements OnInit {
           Validators.minLength(3)
         ]),
         'apellido': new FormControl('', [
-          Validators.required
+          Validators.required,
+          this.noApellidoFernandez
         ])
       }),
       'correo': new FormControl('', [
@@ -34,7 +35,31 @@ export class DataComponent implements OnInit {
         Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")
       ])
     });
+    this.forma.setValue(this.usuario);
   }
+
+
+  guardarCambios(){
+    console.log(this.forma.value);
+    //Resetear info del Formularios
+    this.forma.reset({
+      nombreCompleto: {
+        nombre:"",
+        apellido: ""
+      },
+      correo:""
+    });
+  }
+
+  noApellidoFernandez( control: FormControl ): any{
+    if( control.value === "Fernández"){
+      return {
+        noFernandez: true
+      }
+    }
+    return null;
+  }
+
 
   ngOnInit() {
   }
