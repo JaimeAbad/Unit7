@@ -14,7 +14,9 @@ export class DataComponent implements OnInit {
       nombre: "Carmen",
       apellido: "Baena"
     },
-    correo: "carmen@hotmail.com"
+    correo: "carmen@hotmail.com",
+    password1: "algo",
+    password2:"algo"
   }
 
 
@@ -28,14 +30,34 @@ export class DataComponent implements OnInit {
         'apellido': new FormControl('', [
           Validators.required,
           this.noApellidoFernandez
-        ])
+        ]),
       }),
       'correo': new FormControl('', [
         Validators.required,
         Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")
-      ])
+      ]),
+      'password1': new FormControl('', Validators.required),
+      'password2': new FormControl()
     });
+
+
     this.forma.setValue(this.usuario);
+    this.forma.controls['password2'].setValidators([
+      Validators.required,
+      this.noIgual.bind( this.forma )
+    ]);
+  }
+
+
+  noIgual( control: FormControl): any {
+    let forma: any = this;
+
+    if ( control.value !== forma.controls['password1'].value ) {
+        return{
+          noiguales: true
+        }
+    }
+    return null;
   }
 
 
@@ -47,8 +69,10 @@ export class DataComponent implements OnInit {
         nombre:"",
         apellido: ""
       },
-      correo:""
-    });
+      correo:"",
+      password1:"",
+      password2: ""
+        });
   }
 
   noApellidoFernandez( control: FormControl ): any{

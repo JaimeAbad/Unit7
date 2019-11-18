@@ -3,18 +3,20 @@
 <form [formGroup]="forma" (ngSubmit)="guardarCambios()" novalidate="novalidate">
 
   <div formGroupName="nombreCompleto">
-    <div class="form-group row" [ngClass]="{ 'has-danger': !forma.controls('nombreCompleto').controls['nombre'].valid}">
+
+    <div class="form-group row" >
       <label class="col-2 col-form-label"> Nombre</label>
       <div class="col-8">
         <input class="form-control"
               type="text"
               placeholder="Nombre"
+              nombre
               formControlName="nombre">
-              <div *ngIf="forma.get['nombreCompleto.nombre'].errors?.required"
+              <div *ngIf="forma.get('nombreCompleto.nombre').errors?.required"
                     class="form-control-feedback">
                 Es necesario rellenar el campo nombre.
               </div>
-              <div *ngIf="forma.get['nombreCompleto.nombre'].errors?.minLength"
+              <div *ngIf="forma.get('nombreCompleto.nombre').errors?.minLength"
                     class="form-control-feedback">
                 Este campo debe tener almenos 3 caracteres.
               </div>
@@ -30,6 +32,7 @@
               formControlName="apellido">
       </div>
     </div>
+  </div>
 
     <div class="form-group row">
       <label class="col-2 col-form-label"> Correo</label>
@@ -38,6 +41,28 @@
               type="text"
               placeholder="Correo"
               formControlName="correo">
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label"> Contraseña </label>
+      <div class="col-8">
+        <input class="form-control"
+              type="password"
+              placeholder="Password"
+              formControlName="password1">
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+      <label class="col-2 col-form-label"> Repetir Contraseña </label>
+      <div class="col-8">
+        <input class="form-control"
+              type="password"
+              placeholder="Password"
+              formControlName="password2">
       </div>
     </div>
 
@@ -51,3 +76,4 @@
         </button>
       </div>
     </div>
+</form>
